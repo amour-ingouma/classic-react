@@ -4,6 +4,10 @@ expect to see build status soon12
 ETA - 1 Day.
 This in regards to Issue [#1](/../../issues/1)
 
-The current build status
+Main branch
 
-[![Build Status](https://dev.azure.com/amouringouma0812/testreact/_apis/build/status%2Famour-ingouma.classic-react?branchName=refs%2Fpull%2F3%2Fmerge)](https://dev.azure.com/amouringouma0812/testreact/_build/latest?definitionId=12&branchName=refs%2Fpull%2F3%2Fmerge)
+[![Build Status](https://dev.azure.com/amouringouma0812/testreact/_apis/build/status%2Famour-ingouma.classic-react?branchName=main)](https://dev.azure.com/amouringouma0812/testreact/_build/latest?definitionId=12&branchName=main)
+
+Feature branch
+
+[![Build Status](https://dev.azure.com/amouringouma0812/testreact/_apis/build/status%2Famour-ingouma.classic-react?branchName=build-status-feature)](https://dev.azure.com/amouringouma0812/testreact/_build/latest?definitionId=12&branchName=build-status-feature)
