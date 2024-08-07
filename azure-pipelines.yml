@@ -1,0 +1,68 @@
+
+# Node.js with React
+# Build a Node.js project that uses React.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- main
+
+pool:
+  name: ubuntu
+  
+stages: 
+- stage: Build
+  displayName: CI Pipeline Stage
+  jobs:
+    -  job:
+       steps:
+       - task: NodeTool@0
+         inputs:
+            versionSource: 'spec'
+            versionSpec: '18.x'
+         displayName: 'Install Node.js'
+
+       - script: |
+            npm install
+            npm run build
+         displayName: 'npm install and build'
+
+       - task: ArchiveFiles@1
+         inputs:
+            rootFolder: '$(System.DefaultWorkingDirectory)'
+            includeRootFolder: true
+            archiveType: 'tar'
+            archiveFile: '$(Build.ArtifactStagingDirectory)/build.tar.gz'
+            replaceExistingArchive: true
+         displayName: 'Archive working Directory'
+
+       - task: PublishBuildArtifacts@1
+         inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: 'drop'
+            publishLocation: 'Container'
+- stage: Deployment
+  displayName: CD Stage Deployment
+  jobs:
+  - deployment: VMDeploy
+    displayName: web deployment
+    environment: 
+      name: testcicd
+      resourceType: VirtualMachine
+    strategy:
+     runOnce:
+        preDeploy:
+          steps:
+          - script: |
+              echo hello world
+        deploy:
+         steps:
+          - script: |
+              pm2 stop all
+              pm2 delete all
+              cd /home/hubert/azagent/_work/1/drop
+              tar -xf build.tar.gz
+              cd s/
+              npm install 
+              npm run build
+              pm2 start npm --name "tic tac toe" -- start
