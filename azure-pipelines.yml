@@ -47,7 +47,7 @@ stages:
   - deployment: VMDeploy
     displayName: web deployment
     environment: 
-      name: testcicd
+      name: testvm
       resourceType: VirtualMachine
     strategy:
      runOnce:
